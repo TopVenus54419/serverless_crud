@@ -46,7 +46,6 @@ functions:
           path: items/{id}
           method: delete
           cors: true
-
 resources:
   Resources:
     ItemsTable:
@@ -62,7 +61,6 @@ resources:
         BillingMode: PAY_PER_REQUEST
         StreamSpecification:
           StreamViewType: NEW_AND_OLD_IMAGES
-
 plugins:
   - serverless-webpack
   - serverless-offline
