@@ -46,7 +46,6 @@ functions:
           path: items/{id}
           method: delete
           cors: true
-
 resources:
   Resources:
     ItemsTable:
