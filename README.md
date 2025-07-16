@@ -77,7 +77,24 @@ Add these secrets to your GitHub repository:
 - `AWS_SECRET_ACCESS_KEY`
 
 ## Screenshots
-Add screenshots of your GitHub Actions workflow and API responses here.
+
+### 1. GitHub Actions Workflow Overview
+![Workflow Overview](public/workflow.png)
+
+### 2. Deploy Workflow Step Details
+![Deploy Workflow](public/deploy-workflow.png)
+
+### 3. AWS Lambda Console
+![AWS Lambda](public/AWS%20Lambda.png)
+
+### 4. AWS API Gateway Console
+![AWS API Gateway](public/AWS%20API%20Gateway.png)
+
+### 5. AWS DynamoDB Table
+![AWS DynamoDB](public/AWS%20Dynamodb.png)
+
+### 6. API Test (Postman)
+![Postman Test](public/Postman.png)
 
 ## Loom Video
-Add a Loom video walkthrough link here.
+Insert your Loom video walkthrough link here.
