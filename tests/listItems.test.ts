@@ -11,10 +11,10 @@ describe('listItems Lambda', () => {
     mockListItems.mockReset();
   });
 
-  it('should return 200 and a list of items', async () => {
+  it('should return 200 and a list of menu items', async () => {
     mockListItems.mockResolvedValueOnce([
-      { id: '1', name: 'Test1' },
-      { id: '2', name: 'Test2' },
+      { id: '1', name: 'Latte', price: 4.5, category: 'coffee', available: true },
+      { id: '2', name: 'Muffin', price: 2.5, category: 'pastry', available: false },
     ]);
     const event = {} as unknown as APIGatewayProxyEvent;
     const result = await handler(event, {} as any, () => {});
@@ -22,6 +22,8 @@ describe('listItems Lambda', () => {
     const items = JSON.parse((result as import('aws-lambda').APIGatewayProxyResult).body);
     expect(Array.isArray(items)).toBe(true);
     expect(items.length).toBe(2);
+    expect(items[0].name).toBe('Latte');
+    expect(items[1].category).toBe('pastry');
   });
 
   it('should return 500 on error', async () => {
