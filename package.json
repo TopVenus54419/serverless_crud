@@ -1,0 +1,23 @@
+{
+  "name": "serverless-crud-api",
+  "version": "1.0.0",
+  "description": "Serverless Framework CRUD REST API with AWS API Gateway, Lambda, DynamoDB, and CI/CD",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "deploy:dev": "sls deploy --stage dev",
+    "deploy:prod": "sls deploy --stage prod"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.119",
+    "typescript": "^5.0.0",
+    "serverless": "^3.38.0",
+    "serverless-webpack": "^5.8.0",
+    "serverless-offline": "^12.0.4"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.1481.0"
+  }
+}

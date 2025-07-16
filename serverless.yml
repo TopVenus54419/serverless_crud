@@ -1,0 +1,25 @@
+service: serverless-crud-api
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: us-east-1
+  stage: dev
+  environment:
+    DYNAMODB_TABLE: ${self:service}-${sls:stage}-items
+
+functions:
+  # Handlers will be added step by step
+
+resources:
+  Resources:
+    # DynamoDB table will be defined here
+
+plugins:
+  - serverless-webpack
+  - serverless-offline
+
+package:
+  individually: true
