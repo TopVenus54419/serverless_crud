@@ -13,12 +13,12 @@ export const handler: APIGatewayProxyHandler = async (event) => {
     await deleteItem(id);
     return {
       statusCode: 200,
-      body: JSON.stringify({ message: 'Item deleted', id }),
+      body: JSON.stringify({ message: 'Menu item deleted', id }),
     };
   } catch (error) {
     return {
       statusCode: 500,
-      body: JSON.stringify({ message: 'Failed to delete item', error: (error as Error).message }),
+      body: JSON.stringify({ message: 'Failed to delete menu item', error: (error as Error).message }),
     };
   }
 };

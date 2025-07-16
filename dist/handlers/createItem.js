@@ -5,6 +5,7 @@ const uuid_1 = require("uuid");
 const dynamoService_1 = require("../services/dynamoService");
 const handler = async (event) => {
     try {
+        console.log(event);
         const data = JSON.parse(event.body || '{}');
         if (!data.name) {
             return {
@@ -13,6 +14,7 @@ const handler = async (event) => {
             };
         }
         const now = new Date().toISOString();
+        console.log(data);
         const item = {
             id: (0, uuid_1.v4)(),
             name: data.name,
@@ -20,7 +22,9 @@ const handler = async (event) => {
             createdAt: now,
             updatedAt: now,
         };
+        console.log(item);
         await (0, dynamoService_1.putItem)(item);
+        console.log('Item created:', item);
         return {
             statusCode: 201,
             body: JSON.stringify(item),

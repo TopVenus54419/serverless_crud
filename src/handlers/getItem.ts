@@ -10,21 +10,21 @@ export const handler: APIGatewayProxyHandler = async (event) => {
         body: JSON.stringify({ message: 'Missing id parameter' }),
       };
     }
-    const item = await getItemById(id);
-    if (!item) {
+    const menuItem = await getItemById(id);
+    if (!menuItem) {
       return {
         statusCode: 404,
-        body: JSON.stringify({ message: 'Item not found' }),
+        body: JSON.stringify({ message: 'Menu item not found' }),
       };
     }
     return {
       statusCode: 200,
-      body: JSON.stringify(item),
+      body: JSON.stringify(menuItem),
     };
   } catch (error) {
     return {
       statusCode: 500,
-      body: JSON.stringify({ message: 'Failed to get item', error: (error as Error).message }),
+      body: JSON.stringify({ message: 'Failed to get menu item', error: (error as Error).message }),
     };
   }
 };

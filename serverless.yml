@@ -1,6 +1,6 @@
 service: serverless-crud-api
 
-frameworkVersion: '3'
+frameworkVersion: '4'
 
 provider:
   name: aws
@@ -9,61 +9,31 @@ provider:
   stage: dev
   environment:
     DYNAMODB_TABLE: ${self:service}-${sls:stage}-items
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:PutItem
+            - dynamodb:GetItem
+            - dynamodb:Query
+            - dynamodb:Scan
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+          Resource: "arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
 
-functions:
-  createItem:
-    handler: src/handlers/createItem.handler
-    events:
-      - http:
-          path: items
-          method: post
-          cors: true
-  getItem:
-    handler: src/handlers/getItem.handler
-    events:
-      - http:
-          path: items/{id}
-          method: get
-          cors: true
-  listItems:
-    handler: src/handlers/listItems.handler
-    events:
-      - http:
-          path: items
-          method: get
-          cors: true
-  updateItem:
-    handler: src/handlers/updateItem.handler
-    events:
-      - http:
-          path: items/{id}
-          method: put
-          cors: true
-  deleteItem:
-    handler: src/handlers/deleteItem.handler
-    events:
-      - http:
-          path: items/{id}
-          method: delete
-          cors: true
-resources:
-  Resources:
-    ItemsTable:
-      Type: AWS::DynamoDB::Table
-      Properties:
-        TableName: ${self:provider.environment.DYNAMODB_TABLE}
-        AttributeDefinitions:
-          - AttributeName: id
-            AttributeType: S
-        KeySchema:
-          - AttributeName: id
-            KeyType: HASH
-        BillingMode: PAY_PER_REQUEST
-        StreamSpecification:
-          StreamViewType: NEW_AND_OLD_IMAGES
+functions: ${file(./serverless/functions.yml)}
+resources: ${file(./serverless/resources.yml)}
+
 plugins:
-  - serverless-webpack
   - serverless-offline
 
 package:
   individually: true
+  excludeDevDependencies: true
+  exclude:
+    - tests/**
+    - README.md
+    - .gitignore
+    - public/**
+    - docs/**

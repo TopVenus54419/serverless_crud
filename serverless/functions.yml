@@ -1,0 +1,35 @@
+createItem:
+  handler: src/handlers/createItem.handler
+  events:
+    - http:
+        path: items
+        method: post
+        cors: true
+getItem:
+  handler: src/handlers/getItem.handler
+  events:
+    - http:
+        path: items/{id}
+        method: get
+        cors: true
+listItems:
+  handler: src/handlers/listItems.handler
+  events:
+    - http:
+        path: items
+        method: get
+        cors: true
+updateItem:
+  handler: src/handlers/updateItem.handler
+  events:
+    - http:
+        path: items/{id}
+        method: put
+        cors: true
+deleteItem:
+  handler: src/handlers/deleteItem.handler
+  events:
+    - http:
+        path: items/{id}
+        method: delete
+        cors: true 
