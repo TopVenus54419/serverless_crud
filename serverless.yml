@@ -11,12 +11,56 @@ provider:
     DYNAMODB_TABLE: ${self:service}-${sls:stage}-items
 
 functions:
-  # Handlers will be added step by step
-
+  createItem:
+    handler: src/handlers/createItem.handler
+    events:
+      - http:
+          path: items
+          method: post
+          cors: true
+  getItem:
+    handler: src/handlers/getItem.handler
+    events:
+      - http:
+          path: items/{id}
+          method: get
+          cors: true
+  listItems:
+    handler: src/handlers/listItems.handler
+    events:
+      - http:
+          path: items
+          method: get
+          cors: true
+  updateItem:
+    handler: src/handlers/updateItem.handler
+    events:
+      - http:
+          path: items/{id}
+          method: put
+          cors: true
+  deleteItem:
+    handler: src/handlers/deleteItem.handler
+    events:
+      - http:
+          path: items/{id}
+          method: delete
+          cors: true
 resources:
   Resources:
-    # DynamoDB table will be defined here
-
+    ItemsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:provider.environment.DYNAMODB_TABLE}
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+        StreamSpecification:
+          StreamViewType: NEW_AND_OLD_IMAGES
 plugins:
   - serverless-webpack
   - serverless-offline
