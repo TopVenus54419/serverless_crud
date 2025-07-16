@@ -11,21 +11,21 @@ describe('updateItem Lambda', () => {
     mockUpdateItem.mockReset();
   });
 
-  it('should return 200 and the updated item for valid input', async () => {
-    mockUpdateItem.mockResolvedValueOnce({ id: '1', name: 'Updated', updatedAt: 'now' });
+  it('should return 200 and the updated menu item for valid input', async () => {
+    mockUpdateItem.mockResolvedValueOnce({ id: '1', name: 'Latte', price: 4.5, category: 'coffee', available: false, updatedAt: 'now' });
     const event = {
       pathParameters: { id: '1' },
-      body: JSON.stringify({ name: 'Updated' }),
+      body: JSON.stringify({ available: false }),
     } as unknown as APIGatewayProxyEvent;
     const result = await handler(event, {} as any, () => {});
     expect(result && result.statusCode).toBe(200);
-    expect(result && JSON.parse(result.body).name).toBe('Updated');
+    expect(result && JSON.parse(result.body).available).toBe(false);
   });
 
   it('should return 400 if id is missing', async () => {
     const event = {
       pathParameters: null,
-      body: JSON.stringify({ name: 'Updated' }),
+      body: JSON.stringify({ available: false }),
     } as unknown as APIGatewayProxyEvent;
     const result = await handler(event, {} as any, () => {});
     expect(result && result.statusCode).toBe(400);
@@ -44,7 +44,7 @@ describe('updateItem Lambda', () => {
     mockUpdateItem.mockRejectedValueOnce(new Error('fail'));
     const event = {
       pathParameters: { id: '1' },
-      body: JSON.stringify({ name: 'Updated' }),
+      body: JSON.stringify({ available: false }),
     } as unknown as APIGatewayProxyEvent;
     const result = await handler(event, {} as any, () => {});
     expect(result && result.statusCode).toBe(500);

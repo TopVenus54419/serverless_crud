@@ -26,7 +26,7 @@ export const handler: APIGatewayProxyHandler = async (event) => {
   } catch (error) {
     return {
       statusCode: 500,
-      body: JSON.stringify({ message: 'Failed to update item', error: (error as Error).message }),
+      body: JSON.stringify({ message: 'Failed to update menu item', error: (error as Error).message }),
     };
   }
 };
