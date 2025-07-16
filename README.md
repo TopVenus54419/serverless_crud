@@ -117,9 +117,12 @@ This project uses GitHub Actions to deploy automatically:
 
 ### Setup GitHub Secrets
 Add these secrets to your GitHub repository:
+- `AWS_REGION`
 - `AWS_ACCESS_KEY_ID`
 - `AWS_SECRET_ACCESS_KEY`
 - `SERVERLESS_ACCESS_KEY`
+- `SERVERLESS_ACCESS_KEY`
+- `DYNAMODB_TABLE`
 
 ## Screenshots
 
@@ -140,6 +143,3 @@ Add these secrets to your GitHub repository:
 
 ### 6. API Test (Postman)
 ![Postman Test](public/Postman.png)
-
-## Loom Video
-Insert your Loom video walkthrough link here.
