@@ -1,13 +1,18 @@
-# Serverless CRUD REST API (AWS)
+# Coffee Shop Menu API (Serverless CRUD, AWS)
 
-This project is a Serverless Framework-based REST API using AWS API Gateway, Lambda (Node.js/TypeScript), and DynamoDB. It supports full CRUD operations and is ready for CI/CD deployment.
+This project is a Serverless Framework-based REST API for managing a coffee shop menu, using AWS API Gateway, Lambda (Node.js/TypeScript), and DynamoDB. It supports full CRUD operations for menu items and is ready for CI/CD deployment.
+
+## Business Case
+This API powers a coffee shop’s menu management. You can create, read, update, and delete menu items (e.g., drinks, pastries) with fields like name, price, category, and availability.
 
 ## Features
 - Node.js/TypeScript Lambdas
 - AWS API Gateway REST API
 - DynamoDB integration (no direct service proxy)
-- Serverless Framework IaC
+- Serverless Framework IaC (modular YAML)
 - GitHub Actions CI/CD (multi-stage: dev, prod)
+- Helper scripts for deployment and testing
+- Unit tests for all handlers
 
 ## Folder Structure
 ```
@@ -16,10 +21,27 @@ serverless/
     handlers/   # Lambda function handlers
     models/     # TypeScript interfaces/models
     services/   # Business logic, DynamoDB access
-  README.md
+  tests/        # Unit tests
+  scripts/      # Helper scripts (deploy, test)
   serverless.yml
+  serverless/functions.yml
+  serverless/resources.yml
+  README.md
 ```
 
+## MenuItem Model
+```ts
+export interface MenuItem {
+  id: string;
+  name: string;
+  description?: string;
+  price: number;
+  category: string; // e.g., "coffee", "tea", "pastry"
+  available: boolean;
+  createdAt: string;
+  updatedAt?: string;
+}
+```
 
 ## Getting Started
 
@@ -48,22 +70,44 @@ Deploy to prod stage:
 ```sh
 npm run deploy:prod
 ```
+Or use the helper script:
+```sh
+./scripts/deploy.sh [stage]
+```
 
-### API Endpoints
-| Method | Path         | Description         |
-|--------|--------------|---------------------|
-| POST   | /items       | Create an item      |
-| GET    | /items       | List all items      |
-| GET    | /items/{id}  | Get item by ID      |
-| PUT    | /items/{id}  | Update item by ID   |
-| DELETE | /items/{id}  | Delete item by ID   |
+### Run Tests
+```sh
+npm test
+# or
+./scripts/test.sh
+```
 
-#### Example Request (Create Item)
+## API Endpoints
+| Method | Path         | Description                |
+|--------|--------------|----------------------------|
+| POST   | /items       | Create a menu item         |
+| GET    | /items       | List all menu items        |
+| GET    | /items/{id}  | Get menu item by ID        |
+| PUT    | /items/{id}  | Update menu item by ID     |
+| DELETE | /items/{id}  | Delete menu item by ID     |
+
+#### Example Request (Create Menu Item)
 ```sh
 curl -X POST https://<api-id>.execute-api.<region>.amazonaws.com/dev/items \
   -H "Content-Type: application/json" \
-  -d '{"name": "Test Item", "description": "A test item"}'
+  -d '{"name": "Latte", "price": 4.5, "category": "coffee", "available": true}'
 ```
+
+## Infrastructure as Code (IaC)
+- All AWS resources and functions are defined in modular YAML files:
+  - `serverless.yml` (main config)
+  - `serverless/functions.yml` (Lambdas)
+  - `serverless/resources.yml` (DynamoDB)
+- Lambda packaging is optimized (excludes dev dependencies, tests, docs, etc.)
+
+## Helper Scripts
+- `scripts/deploy.sh [stage]` — Build and deploy to a specified stage (default: dev)
+- `scripts/test.sh` — Run all tests
 
 ## CI/CD with GitHub Actions
 
@@ -75,6 +119,7 @@ This project uses GitHub Actions to deploy automatically:
 Add these secrets to your GitHub repository:
 - `AWS_ACCESS_KEY_ID`
 - `AWS_SECRET_ACCESS_KEY`
+- `SERVERLESS_ACCESS_KEY`
 
 ## Screenshots
 
