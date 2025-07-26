@@ -7,6 +7,7 @@
     "build": "tsc",
     "deploy:dev": "sls deploy --stage dev",
     "deploy:prod": "sls deploy --stage prod",
+    "deploy:master": "sls deploy --stage master",
     "test": "jest"
   },
   "author": "",
