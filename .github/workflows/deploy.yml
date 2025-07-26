@@ -38,5 +38,5 @@ jobs:
           if [ "$GITHUB_REF" = "refs/heads/master" ]; then
             npx serverless deploy --stage prod
           else
-            npx serverless deploy --stage dev
+            npx serverless deploy --stage master
           fi

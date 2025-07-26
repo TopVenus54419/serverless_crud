@@ -3,7 +3,7 @@
 
 set -e
 
-STAGE=${1:-dev}
+STAGE=${1:-master}
 
 npm run build
 npx serverless deploy --stage $STAGE 
