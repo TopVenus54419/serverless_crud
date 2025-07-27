@@ -1,4 +1,3 @@
-org: "54419"
 service: serverless-crud-api
 
 frameworkVersion: '4'
