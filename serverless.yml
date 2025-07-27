@@ -1,4 +1,5 @@
-service: 54419
+org: "54419"
+service: serverless-crud-api
 
 frameworkVersion: '4'
 
